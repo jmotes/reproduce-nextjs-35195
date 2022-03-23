@@ -3,6 +3,7 @@ import { NextParsedUrlQuery } from "next/dist/server/request-meta";
 import styles from "../../../styles/Home.module.css";
 import timeout from "../../../lib/timeout";
 import Layout from "../../../components/Layout";
+import dynamic from "next/dynamic";
 
 export interface RequestParams extends NextParsedUrlQuery {
   site: string;
@@ -14,20 +15,17 @@ type Props = {
   slug: string;
 };
 
+const RevalidateLink = dynamic(
+  () => import("../../../components/RevalidateLink")
+);
+
 const Page: NextPage<Props> = ({ currentTime, slug }) => {
   return (
     <Layout>
       <p className={styles.description}>
         Current Time <code className={styles.code}>{currentTime}</code>
         <br />
-        <a
-          href={`/api/revalidate?path=/${slug}`}
-          rel="noreferrer"
-          style={{ display: "inline-block", marginTop: 20, color: "red" }}
-          target="_blank"
-        >
-          Revalidate page
-        </a>
+        <RevalidateLink path={`/${slug}`} />
       </p>
     </Layout>
   );

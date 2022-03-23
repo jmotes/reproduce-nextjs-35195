@@ -2,10 +2,15 @@ import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import styles from "../../../styles/Home.module.css";
 import timeout from "../../../lib/timeout";
 import Layout from "../../../components/Layout";
+import dynamic from "next/dynamic";
 
 type Props = {
   currentTime: string;
 };
+
+const RevalidateLink = dynamic(
+  () => import("../../../components/RevalidateLink")
+);
 
 const Home: NextPage<Props> = ({ currentTime }) => {
   return (
@@ -13,14 +18,7 @@ const Home: NextPage<Props> = ({ currentTime }) => {
       <p className={styles.description}>
         Current Time <code className={styles.code}>{currentTime}</code>
         <br />
-        <a
-          href="/api/revalidate?path=/"
-          rel="noreferrer"
-          style={{ display: "inline-block", marginTop: 20, color: "red" }}
-          target="_blank"
-        >
-          Revalidate page
-        </a>
+        <RevalidateLink path="/" />
       </p>
     </Layout>
   );
