@@ -6,7 +6,7 @@ import Links from "../components/Links";
 import styles from "../styles/Home.module.css";
 
 type Props = {
-  currentTime: number;
+  currentTime: string;
 };
 
 const Page: NextPage<Props> = ({ currentTime }) => {
@@ -68,7 +68,7 @@ export const getStaticPaths: GetStaticPaths = () => {
 export const getStaticProps: GetStaticProps<Props> = () => {
   return {
     props: {
-      currentTime: Date.now(),
+      currentTime: new Date().toLocaleString("en-US"),
     },
     revalidate: 86400, // 24 hours
   };
