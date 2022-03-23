@@ -28,7 +28,7 @@ const Home: NextPage<Props> = ({ currentTime }) => {
           Current Time <code className={styles.code}>{currentTime}</code>
           <br />
           <a
-            href={`/api/revalidate?path=${router.asPath}`}
+            href="/api/revalidate?path=/"
             rel="noreferrer"
             style={{ display: "inline-block", marginTop: 20, color: "red" }}
             target="_blank"
