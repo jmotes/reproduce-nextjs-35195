@@ -1,16 +1,14 @@
 import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
-import { useRouter } from "next/router";
-import Links from "../components/Links";
-import styles from "../styles/Home.module.css";
+import Links from "../../../components/Links";
+import styles from "../../../styles/Home.module.css";
 
 type Props = {
   currentTime: string;
 };
 
-const Page: NextPage<Props> = ({ currentTime }) => {
-  const router = useRouter();
+const Home: NextPage<Props> = ({ currentTime }) => {
   return (
     <div className={styles.container}>
       <Head>
@@ -28,7 +26,7 @@ const Page: NextPage<Props> = ({ currentTime }) => {
           Current Time <code className={styles.code}>{currentTime}</code>
           <br />
           <a
-            href={`/api/revalidate?path=${router.asPath}`}
+            href="/api/revalidate?path=/"
             rel="noreferrer"
             style={{ display: "inline-block", marginTop: 20, color: "red" }}
             target="_blank"
@@ -56,7 +54,7 @@ const Page: NextPage<Props> = ({ currentTime }) => {
   );
 };
 
-export default Page;
+export default Home;
 
 export const getStaticPaths: GetStaticPaths = () => {
   return {

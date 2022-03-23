@@ -1,16 +1,21 @@
-import type { GetStaticProps, NextPage } from "next";
+import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
+import { NextParsedUrlQuery } from "next/dist/server/request-meta";
 import Head from "next/head";
 import Image from "next/image";
-import { useRouter } from "next/router";
-import Links from "../components/Links";
-import styles from "../styles/Home.module.css";
+import Links from "../../../components/Links";
+import styles from "../../../styles/Home.module.css";
+
+export interface RequestParams extends NextParsedUrlQuery {
+  site: string;
+  slug: string;
+}
 
 type Props = {
   currentTime: string;
+  slug: string;
 };
 
-const Home: NextPage<Props> = ({ currentTime }) => {
-  const router = useRouter();
+const Page: NextPage<Props> = ({ currentTime, slug }) => {
   return (
     <div className={styles.container}>
       <Head>
@@ -28,7 +33,7 @@ const Home: NextPage<Props> = ({ currentTime }) => {
           Current Time <code className={styles.code}>{currentTime}</code>
           <br />
           <a
-            href="/api/revalidate?path=/"
+            href={`/api/revalidate?path=/${slug}`}
             rel="noreferrer"
             style={{ display: "inline-block", marginTop: 20, color: "red" }}
             target="_blank"
@@ -56,12 +61,22 @@ const Home: NextPage<Props> = ({ currentTime }) => {
   );
 };
 
-export default Home;
+export default Page;
 
-export const getStaticProps: GetStaticProps<Props> = async () => {
+export const getStaticPaths: GetStaticPaths = () => {
+  return {
+    paths: [],
+    fallback: "blocking",
+  };
+};
+
+export const getStaticProps: GetStaticProps<Props, RequestParams> = ({
+  params,
+}) => {
   return {
     props: {
       currentTime: new Date().toLocaleString("en-US"),
+      slug: params?.slug ?? "",
     },
     revalidate: 86400, // 24 hours
   };
