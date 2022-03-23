@@ -3,7 +3,7 @@ import Head from "next/head";
 import Image from "next/image";
 import Links from "../../../components/Links";
 import styles from "../../../styles/Home.module.css";
-import timeout from "../../lib/timeout";
+import timeout from "../../../lib/timeout";
 
 type Props = {
   currentTime: string;
