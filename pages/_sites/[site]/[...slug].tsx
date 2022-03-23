@@ -7,7 +7,7 @@ import styles from "../../../styles/Home.module.css";
 
 export interface RequestParams extends NextParsedUrlQuery {
   site: string;
-  slug: string;
+  slug: string | string[]; // the slug param is an array when the path contains multiple segments
 }
 
 type Props = {
@@ -73,10 +73,12 @@ export const getStaticPaths: GetStaticPaths = () => {
 export const getStaticProps: GetStaticProps<Props, RequestParams> = ({
   params,
 }) => {
+  const slug = ([] as string[]).concat(params?.slug ?? []).join("/");
+
   return {
     props: {
       currentTime: new Date().toLocaleString("en-US"),
-      slug: params?.slug ?? "",
+      slug,
     },
     revalidate: 86400, // 24 hours
   };

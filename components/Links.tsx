@@ -11,7 +11,7 @@ export default function Links() {
         </a>
       </Link>
 
-      <Link href="/learn">
+      <Link href="/learn/next">
         <a className={styles.card}>
           <h2>Learn &rarr;</h2>
           <p>Learn about Next.js in an interactive course with quizzes!</p>
