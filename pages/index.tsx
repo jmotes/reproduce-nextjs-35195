@@ -1,6 +1,7 @@
 import type { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import Links from "../components/Links";
 import styles from "../styles/Home.module.css";
 
@@ -9,6 +10,7 @@ type Props = {
 };
 
 const Home: NextPage<Props> = ({ currentTime }) => {
+  const router = useRouter();
   return (
     <div className={styles.container}>
       <Head>
@@ -24,6 +26,15 @@ const Home: NextPage<Props> = ({ currentTime }) => {
 
         <p className={styles.description}>
           Current Time <code className={styles.code}>{currentTime}</code>
+          <br />
+          <a
+            href={`/api/revalidate?path=${router.asPath}`}
+            rel="noreferrer"
+            style={{ display: "inline-block", marginTop: 20, color: "red" }}
+            target="_blank"
+          >
+            Revalidate page
+          </a>
         </p>
 
         <Links />
