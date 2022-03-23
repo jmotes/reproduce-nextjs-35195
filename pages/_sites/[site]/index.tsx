@@ -3,6 +3,7 @@ import Head from "next/head";
 import Image from "next/image";
 import Links from "../../../components/Links";
 import styles from "../../../styles/Home.module.css";
+import timeout from "../../lib/timeout";
 
 type Props = {
   currentTime: string;
@@ -54,16 +55,16 @@ const Home: NextPage<Props> = ({ currentTime }) => {
   );
 };
 
-export default Home;
-
-export const getStaticPaths: GetStaticPaths = () => {
+export const getStaticPaths: GetStaticPaths = async () => {
   return {
     paths: [],
     fallback: "blocking",
   };
 };
 
-export const getStaticProps: GetStaticProps<Props> = () => {
+export const getStaticProps: GetStaticProps<Props> = async () => {
+  await timeout(3000);
+
   return {
     props: {
       currentTime: new Date().toLocaleString("en-US"),
@@ -71,3 +72,5 @@ export const getStaticProps: GetStaticProps<Props> = () => {
     revalidate: 86400, // 24 hours
   };
 };
+
+export default Home;

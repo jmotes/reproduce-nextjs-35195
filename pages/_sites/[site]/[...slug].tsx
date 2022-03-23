@@ -4,6 +4,7 @@ import Head from "next/head";
 import Image from "next/image";
 import Links from "../../../components/Links";
 import styles from "../../../styles/Home.module.css";
+import timeout from "../../lib/timeout";
 
 export interface RequestParams extends NextParsedUrlQuery {
   site: string;
@@ -61,19 +62,18 @@ const Page: NextPage<Props> = ({ currentTime, slug }) => {
   );
 };
 
-export default Page;
-
-export const getStaticPaths: GetStaticPaths = () => {
+export const getStaticPaths: GetStaticPaths = async () => {
   return {
     paths: [],
     fallback: "blocking",
   };
 };
 
-export const getStaticProps: GetStaticProps<Props, RequestParams> = ({
+export const getStaticProps: GetStaticProps<Props, RequestParams> = async ({
   params,
 }) => {
   const slug = ([] as string[]).concat(params?.slug ?? []).join("/");
+  await timeout(3000);
 
   return {
     props: {
@@ -83,3 +83,5 @@ export const getStaticProps: GetStaticProps<Props, RequestParams> = ({
     revalidate: 86400, // 24 hours
   };
 };
+
+export default Page;
