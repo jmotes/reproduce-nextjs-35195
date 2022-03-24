@@ -1,16 +1,11 @@
 import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import styles from "../../../styles/Home.module.css";
-import timeout from "../../../lib/timeout";
 import Layout from "../../../components/Layout";
-import dynamic from "next/dynamic";
+import RevalidateLink from "../../../components/RevalidateLink";
 
 type Props = {
   currentTime: string;
 };
-
-const RevalidateLink = dynamic(
-  () => import("../../../components/RevalidateLink")
-);
 
 const Home: NextPage<Props> = ({ currentTime }) => {
   return (
@@ -32,8 +27,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
-  await timeout(3000);
-
   return {
     props: {
       currentTime: new Date().toLocaleString("en-US"),
