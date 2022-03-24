@@ -27,7 +27,12 @@ const Block = ({ block }: { block: PageBlock }) => {
     case "core/paragraph":
       return <Paragraph {...block} />;
     default:
-      return <p>Block &quot;{block.blockName}&quot; is not supported.</p>;
+      return (
+        <p>
+          Block <code className={styles.code}>{block.blockName}</code> is not
+          supported.
+        </p>
+      );
   }
 };
 
