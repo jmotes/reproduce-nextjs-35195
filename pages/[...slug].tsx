@@ -1,13 +1,10 @@
 import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { NextParsedUrlQuery } from "next/dist/server/request-meta";
-import styles from "../../../styles/Home.module.css";
-import Layout from "../../../components/Layout";
+import styles from "../styles/Home.module.css";
+import Layout from "../components/Layout";
 import dynamic from "next/dynamic";
-import RevalidateLink from "../../../components/RevalidateLink";
-import getPageByUri, {
-  PageBlock,
-  WordPressPage,
-} from "../../../lib/get-page-by-uri";
+import RevalidateLink from "../components/RevalidateLink";
+import getPageByUri, { PageBlock, WordPressPage } from "../lib/get-page-by-uri";
 
 export interface RequestParams extends NextParsedUrlQuery {
   site: string;
@@ -20,7 +17,7 @@ type Props = {
   slug: string;
 };
 
-const Paragraph = dynamic(() => import("../../../components/Paragraph"));
+const Paragraph = dynamic(() => import("../components/Paragraph"));
 
 const Block = ({ block }: { block: PageBlock }) => {
   switch (block.blockName) {
