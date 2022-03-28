@@ -13,7 +13,7 @@ export interface RequestParams extends NextParsedUrlQuery {
 
 type Props = {
   page: WordPressPage;
-  currentTime: string;
+  currentTime: number;
   slug: string;
 };
 
@@ -37,7 +37,10 @@ const Page: NextPage<Props> = ({ page, currentTime, slug }) => {
   return (
     <Layout>
       <p className={styles.description}>
-        Current Time <code className={styles.code}>{currentTime}</code>
+        Current Time{" "}
+        <code className={styles.code}>
+          {new Date(currentTime).toLocaleString()}
+        </code>
         <br />
         <RevalidateLink path={`/${slug}`} />
       </p>
@@ -68,7 +71,7 @@ export const getStaticProps: GetStaticProps<Props, RequestParams> = async ({
   return {
     props: {
       page,
-      currentTime: new Date().toLocaleString("en-US"),
+      currentTime: Date.now(),
       slug,
     },
     revalidate: 86400, // 24 hours

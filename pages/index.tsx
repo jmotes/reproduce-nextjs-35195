@@ -4,14 +4,17 @@ import Layout from "../components/Layout";
 import RevalidateLink from "../components/RevalidateLink";
 
 type Props = {
-  currentTime: string;
+  currentTime: number;
 };
 
 const Home: NextPage<Props> = ({ currentTime }) => {
   return (
     <Layout>
       <p className={styles.description}>
-        Current Time <code className={styles.code}>{currentTime}</code>
+        Current Time{" "}
+        <code className={styles.code}>
+          {new Date(currentTime).toLocaleString()}
+        </code>
         <br />
         <RevalidateLink path="/" />
       </p>
@@ -22,7 +25,7 @@ const Home: NextPage<Props> = ({ currentTime }) => {
 export const getStaticProps: GetStaticProps<Props> = async () => {
   return {
     props: {
-      currentTime: new Date().toLocaleString("en-US"),
+      currentTime: Date.now(),
     },
     revalidate: 86400, // 24 hours
   };
