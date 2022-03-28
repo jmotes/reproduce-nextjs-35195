@@ -22,13 +22,6 @@ const Home: NextPage<Props> = ({ currentTime }) => {
   );
 };
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  return {
-    paths: [],
-    fallback: "blocking",
-  };
-};
-
 export const getStaticProps: GetStaticProps<Props> = async () => {
   return {
     props: {
