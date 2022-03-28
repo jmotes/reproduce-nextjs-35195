@@ -1,8 +1,8 @@
 import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { NextParsedUrlQuery } from "next/dist/server/request-meta";
-import styles from "../styles/Home.module.css";
-import Layout from "../components/Layout";
-import RevalidateLink from "../components/RevalidateLink";
+import styles from "../../../styles/Home.module.css";
+import Layout from "../../../components/Layout";
+import RevalidateLink from "../../../components/RevalidateLink";
 
 export interface RequestParams extends NextParsedUrlQuery {
   site: string;
