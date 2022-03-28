@@ -1,7 +1,7 @@
 import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
-import styles from "../../../styles/Home.module.css";
-import Layout from "../../../components/Layout";
-import RevalidateLink from "../../../components/RevalidateLink";
+import styles from "../styles/Home.module.css";
+import Layout from "../components/Layout";
+import RevalidateLink from "../components/RevalidateLink";
 
 type Props = {
   currentTime: number;
