@@ -39,14 +39,14 @@ export default function Layout({ children }: Props) {
             </a>
           </Link>
 
-          <Link href="/testing-1">
+          <Link href="/examples">
             <a className={styles.card}>
               <h2>Examples &rarr;</h2>
               <p>Discover and deploy boilerplate example Next.js projects.</p>
             </a>
           </Link>
 
-          <Link href="/testing-2">
+          <Link href="/deploy">
             <a className={styles.card}>
               <h2>Deploy &rarr;</h2>
               <p>

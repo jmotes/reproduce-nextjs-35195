@@ -2,9 +2,7 @@ import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { NextParsedUrlQuery } from "next/dist/server/request-meta";
 import styles from "../styles/Home.module.css";
 import Layout from "../components/Layout";
-import dynamic from "next/dynamic";
 import RevalidateLink from "../components/RevalidateLink";
-import getPageByUri, { PageBlock, WordPressPage } from "../lib/get-page-by-uri";
 
 export interface RequestParams extends NextParsedUrlQuery {
   site: string;
@@ -12,28 +10,11 @@ export interface RequestParams extends NextParsedUrlQuery {
 }
 
 type Props = {
-  page: WordPressPage;
   currentTime: number;
   slug: string;
 };
 
-const Paragraph = dynamic(() => import("../components/Paragraph"));
-
-const Block = ({ block }: { block: PageBlock }) => {
-  switch (block.blockName) {
-    case "core/paragraph":
-      return <Paragraph {...block} />;
-    default:
-      return (
-        <p>
-          Block <code className={styles.code}>{block.blockName}</code> is not
-          supported.
-        </p>
-      );
-  }
-};
-
-const Page: NextPage<Props> = ({ page, currentTime, slug }) => {
+const Page: NextPage<Props> = ({ currentTime, slug }) => {
   return (
     <Layout>
       <p className={styles.description}>
@@ -44,9 +25,6 @@ const Page: NextPage<Props> = ({ page, currentTime, slug }) => {
         <br />
         <RevalidateLink path={`/${slug}`} />
       </p>
-      {page.blocks.map((b) => (
-        <Block key={b.id} block={b} />
-      ))}
     </Layout>
   );
 };
@@ -62,15 +40,9 @@ export const getStaticProps: GetStaticProps<Props, RequestParams> = async ({
   params,
 }) => {
   const slug = ([] as string[]).concat(params?.slug ?? []).join("/");
-  const page = await getPageByUri(slug);
-
-  if (!page) {
-    return { notFound: true, revalidate: 10 };
-  }
 
   return {
     props: {
-      page,
       currentTime: Date.now(),
       slug,
     },
